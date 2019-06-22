@@ -26,27 +26,42 @@ Explanation: 342 + 465 = 807.
 # @param {ListNode} l2
 # @return {ListNode}
 def add_two_numbers(l1, l2)
-    t = l1
-    t2 = l2
-    first = []
-    second = []
-    
-    while t != nil || t2 !=nil
-        if t != nil
-            first << t.val 
-            t = t.next
-        end
-        if t2 != nil
-            second << t2.val
-            t2 = t2.next
-        end
+    n1 = list_to_int(l1)
+    n2 = list_to_int(l2)    
+    int_to_list(n1 + n2)
+end
+
+def list_to_int(list)
+    nextNode = list.next
+    num = list.val.to_s
+
+    while nextNode
+        num += nextNode.val.to_s
+        nextNode = nextNode.next
     end
     
+    num.split('').reverse.join('').to_i
+end
+
+
+#find tail of a list
+ def find_tail(list)
+    node = list
+    return node if !node.next
+    return node if !node.next while (node = node.next)
+  end
+     
+     
+def int_to_list(int) 
+    arr = int.to_s.split('')
+    p arr
+    list = ListNode.new(arr.pop) #
+    #pointer = list
+        
+    while !arr.empty? do
+         tail = find_tail(list)
+         tail.next = ListNode.new(arr.pop)
+    end
     
-    
-    t3 = first.reverse.join.to_i
-    t4 = second.reverse.join.to_i
-    
-   
-    return (t3+t4).to_s.split('').map(&:to_i).reverse
+    list
 end
